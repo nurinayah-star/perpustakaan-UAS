@@ -213,6 +213,11 @@ def hitung_denda(tgl_maks_str, tgl_kembali_str):
         return selisih * DENDA_PER_HARI
     return 0
 
+def angkatan_dari_nim(nim):
+    if len(nim) < 2 or not nim[:2].isdigit():
+        raise ValueError("NIM harus diawali 2 angka tahun angkatan.")
+    return 2000 + int(nim[:2])
+
 # =============================================================================
 # INISIALISASI SISTEM & GENERATE DATA DUMMY
 # =============================================================================
@@ -334,10 +339,10 @@ nama_belakang = ["Fauzi", "Santoso", "Dewi", "Pertiwi", "Prasetyo", "Handayani",
 
 list_mahasiswa = []
 for i in range(100):
-    nim      = f"241011{i+1:03d}"
+    angkatan = random.choice([2023, 2024, 2025])
+    nim      = f"{str(angkatan)[-2:]}1011{i+1:03d}"
     nama     = f"{random.choice(nama_depan)} {random.choice(nama_belakang)}"
     prodi    = random.choice(["Ilmu Komputer", "Sistem Informasi", "Teknik Informatika"])
-    angkatan = random.choice([2022, 2023, 2024])
     list_mahasiswa.append((nim, nama, prodi, angkatan))
 
 seen_nim = set()
@@ -629,7 +634,7 @@ class PerpustakaanGUI:
             nim = self.m_entries["m_nim"].get().strip()
             nama = self.m_entries["m_nama"].get().strip()
             prodi = self.m_entries["m_prodi"].get().strip()
-            angkatan = int(self.m_entries["m_angkatan"].get().strip())
+            angkatan = angkatan_dari_nim(nim)
             
             if hash_mahasiswa.cari_mahasiswa(nim):
                 messagebox.showerror("Error", "NIM sudah terdaftar!")
@@ -642,7 +647,7 @@ class PerpustakaanGUI:
             self.load_semua_mhs()
             for entry in self.m_entries.values(): entry.delete(0, tk.END)
         except ValueError:
-            messagebox.showerror("Error", "Tahun angkatan harus berupa angka!")
+            messagebox.showerror("Error", "NIM harus diawali 2 angka tahun angkatan, contoh: 251011071.")
 
     def gui_cari_mhs(self):
         nim = self.ent_cari_mhs.get().strip()
