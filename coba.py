@@ -5,7 +5,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 
 # =============================================================================
-# STRUKTUR DATA 1: BINARY SEARCH TREE (BST) UNTUK BUKU
+# STRUKTUR DATA 1: BINARY SEARCH TREE (BST) UNTUK BUKU nauaa
 # =============================================================================
 
 class Buku:
