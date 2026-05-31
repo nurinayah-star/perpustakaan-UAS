@@ -16,7 +16,7 @@ class Buku:
         self.penerbit     = penerbit
         self.tahun_terbit = tahun_terbit
         self.jenis_buku   = jenis_buku
-        self.ketersediaan = ketersedii
+        self.ketersediaan = ketersediaan
         self.left  = None
         self.right = None
 
